@@ -4,7 +4,6 @@
 
 [![Firebase](https://img.shields.io/badge/Firebase-Hosting%20%2B%20Functions-FFCA28?logo=firebase&logoColor=black)](https://virtual-stock-game.web.app)
 [![Version](https://img.shields.io/badge/version-0.2.7-blue)](https://github.com/SinjaServer/virtual-stock-game)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **🔗 [라이브 데모 바로가기](https://virtual-stock-game.web.app)**
 
@@ -58,36 +57,7 @@
 
 ## 🏗️ 시스템 아키텍처
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    사용자 브라우저                         │
-│  index.html / overseas.html / ranking.html               │
-│  ┌──────────┐  ┌─────────────┐  ┌────────────────────┐  │
-│  │ script.js│  │ overseas.js │  │    ranking.js      │  │
-│  └────┬─────┘  └──────┬──────┘  └────────┬───────────┘  │
-│       └───────────────┴──────────────────┘              │
-│               firebase-config.js (공통 초기화)            │
-└───────────────────────┬─────────────────────────────────┘
-                        │ Firebase SDK v9
-┌───────────────────────▼─────────────────────────────────┐
-│                Firebase (GCP · 서울 리전)                  │
-│                                                         │
-│  ┌─────────────┐  ┌─────────────────────────────────┐   │
-│  │ Firebase    │  │        Cloud Firestore           │   │
-│  │ Auth        │  │  users/  stocks/  stocks_usd/    │   │
-│  │ (Google)    │  │  rankings/  system/  market_*/   │   │
-│  └─────────────┘  └─────────────────────────────────┘   │
-│                                                         │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              Cloud Functions v2                   │   │
-│  │  [매 1분]  updateScheduledStockPrices             │   │
-│  │  [매 10분] updateExchangeRates                    │   │
-│  │  [매 1시간] calculateAndSaveRankings              │   │
-│  │  [매일 08:00] generateDailyMissions               │   │
-│  │  [On-Demand] performExchange / takeLoan / ...     │   │
-│  └──────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
+<img width="1792" height="2400" alt="Image" src="https://github.com/user-attachments/assets/2dc1490f-7938-4471-bdc1-b3d4a9d2c751" />
 
 ---
 
@@ -99,13 +69,6 @@
 주가는 클라이언트에서 2초마다 랜덤으로 움직이고, 자산은 메모리에만 저장되어 **새로고침하면 초기화**되는 프로토타입이었습니다.
 
 **목표:** "주식 거래 UI가 어떻게 느껴지는지" 빠르게 검증
-
-```
-virtual-stock-game/   ← 지금도 이 버전이 그대로 남아있습니다
-├── index.html
-├── script.js   (287줄, 로컬 상태만)
-└── style.css
-```
 
 ---
 
@@ -188,46 +151,6 @@ virtual-stock-game/
         ├── ranking.js           # 랭킹 조회
         ├── glossary.js          # 용어사전 (ES Module)
         └── updates.js           # 업데이트 게시판 (ES Module)
-```
-
----
-
-## 💻 로컬 실행 방법
-
-### 사전 준비
-- [Node.js](https://nodejs.org/) 20 이상
-- [Firebase CLI](https://firebase.google.com/docs/cli) 설치
-
-```bash
-npm install -g firebase-tools
-firebase login
-```
-
-### 의존성 설치
-
-```bash
-cd public/functions
-npm install
-```
-
-### Firebase Emulator로 로컬 실행
-
-```bash
-cd public
-firebase emulators:start
-```
-
-브라우저에서 `http://localhost:5000` 접속
-
-> **참고:** 실제 Firestore 데이터 없이는 주식 목록이 표시되지 않습니다.  
-> Emulator UI(`http://localhost:4000`)에서 `stocks` 컬렉션에 테스트 데이터를 직접 추가하거나,  
-> 프로젝트에 Firebase 접근 권한이 있다면 실제 프로젝트에 연결할 수 있습니다.
-
-### 프로덕션 배포
-
-```bash
-cd public
-firebase deploy
 ```
 
 ---
