@@ -1,0 +1,824 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --background-color: #f4f6f8;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+    --positive-color: #e74c3c;
+    --negative-color: #2980b9;
+    --card-bg-color: #ffffff;
+    --shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    width: 100%;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 { margin-bottom: 0.5rem; }
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#user-auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+#user-auth #login-btn, #user-auth #logout-btn {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+nav a.active, nav a:hover {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio-layout {
+    display: grid;
+    /* 3:1 비율의 그리드 컬럼 생성, 사이 간격은 2rem */
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+}
+
+/* 오른쪽 사이드바의 정보 위젯 상단 여백 제거 */
+.sidebar-content .info-widget {
+    margin-top: 0;
+}
+
+.info-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-tab-button {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #888;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.info-tab-button:hover {
+    color: var(--secondary-color);
+}
+
+.info-tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.info-panels {
+    padding: 1rem 1.5rem;
+}
+
+.info-panel {
+    display: none; /* 기본적으로 모든 패널 숨김 */
+}
+
+.info-panel.active {
+    display: block; /* active 클래스가 있는 패널만 보임 */
+}
+
+.announcement-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.announcement-item:last-child {
+    border-bottom: none;
+}
+.announcement-item .item-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+.announcement-item .item-date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.news-item {
+    display: block;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color 0.2s;
+}
+.news-item:last-child {
+    border-bottom: none;
+}
+.news-item:hover {
+    background-color: #f9f9f9;
+}
+.news-item .item-title {
+    font-weight: 500;
+}
+.news-item .item-source {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.25rem;
+}
+
+.content {
+    display: none;
+    background-color: var(--card-bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.content2 {
+    padding: 0;
+    background-color:var(--background-color);
+    border-radius: none;
+    box-shadow:none;
+}
+
+.content.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* 카드 사이의 간격 */
+}
+
+/* 새로운 카드 스타일 */
+.card,
+.info-widget {
+    background-color: var(--card-bg-color); /* 내용물에만 흰색 배경 적용 */
+    border-radius: 12px; /* 좀 더 부드러운 모서리 */
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* 입체감을 주는 그림자 */
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* 각 카드 내부의 제목 스타일 */
+.card h2,
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+.portfolio-header h3 {
+    margin-bottom: 0;
+}
+
+/* 테이블 컨테이너와 헤더의 불필요한 여백 제거 */
+.table-container { padding: 0; }
+.portfolio-header { padding: 0; border-bottom: none; }
+.info-widget { margin-top: 0; padding: 0; } /* 정보 위젯은 내부 패딩을 제거하여 탭과 맞춤 */
+.info-panels { padding: 1rem 1.5rem; }
+
+/* 우측 사이드바의 정보 위젯도 같은 블록 스타일 적용 */
+.sidebar-content .info-widget {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-top: 0; /* 기존 마진 상쇄 */
+}
+
+/* 정보 위젯 내부 패딩 조절 (padding이 겹치지 않도록) */
+.sidebar-content .info-panels {
+    padding: 1rem 1.5rem; /* info-widget의 padding과 info-panels의 padding이 겹쳐서 과해지지 않도록 조절 */
+}
+
+/* 섹션 제목 스타일 */
+.section-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* 포트폴리오 스타일 (기존과 유사) */
+.summary-box {
+    display: grid;
+    grid-template-columns: 1fr; /* 모바일에서는 세로로 쌓임 */
+    gap: 0;
+    margin-bottom: 2rem;
+}
+.table-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { padding: 0.8rem 1rem; text-align: right; border-bottom: 1px solid var(--border-color); }
+th { background-color: #f2f2f2; font-weight: 500; }
+td:first-child, th:first-child { text-align: left; }
+
+/* 총 자산 카드 */
+.total-assets-card {
+    background: linear-gradient(45deg, #34495e, #2c3e50);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.total-assets-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+.total-assets-value {
+    margin: 0;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.loan-amount-text { color: #e74c3c; font-weight: bold; margin-top: 5px; height: 1.2em; }
+.loan-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 1rem; }
+.loan-buttons button { font-size: 0.9rem; padding: 8px 15px; background-color: rgba(255,255,255,0.1); border: 1px solid white; }
+.loan-buttons button:hover { background-color: rgba(255,255,255,0.2); }
+.loan-buttons button:disabled { opacity: 0.5; cursor: not-allowed; }
+#loan-display,
+#loan-btn,
+#repay-btn {
+    display: none;
+}
+
+/* 개별 통화 지갑 그리드 */
+.wallet-toggle {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+}
+
+.wallet-toggle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.toggle-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icon.rotated {
+    transform: rotate(180deg);
+}
+
+.wallet-grid-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+}
+
+.wallet-grid-content.expanded {
+    max-height: 500px;
+}
+
+.wallet-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2x2 그리드 */
+    gap: 1rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.mini-wallet {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+.mini-wallet .currency {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.25rem;
+}
+.mini-wallet .balance {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+/* --- 거래 페이지 개편 스타일 --- */
+.trading-layout {
+    display: flex;
+    gap: 2rem;
+    height: 550px; /* 고정 높이 */
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#update-timer {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    background-color: #eaf5fc;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+#update-timer2 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    background-color: #eaf5fc;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+/* --- 전체 매도 --- */
+.button-small {
+    margin-top: 0.5rem;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#sell-all-btn {
+    background-color: #fff0f0;
+    border-color: #e74c3c;
+    color: #c0392b;
+    font-weight: 500;
+}
+
+#sell-all-btn:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+
+.stock-list-container {
+    flex: 0 0 250px; /* 너비 고정 */
+    display: flex;
+    flex-direction: column;
+}
+
+.stock-list-container h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+#tradable-stocks {
+    list-style: none;
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+#tradable-stocks li {
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+#tradable-stocks li:last-child { border-bottom: none; }
+#tradable-stocks li:hover, #tradable-stocks li.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.trading-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.chart-container {
+    height: 280px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.order-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-grow: 1;
+}
+
+.order-box {
+    flex: 1;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: #fdfdfd;
+}
+
+.order-box h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+.buy-box h4 { border-bottom: 2px solid var(--positive-color); }
+.sell-box h4 { border-bottom: 2px solid var(--negative-color); }
+
+.order-box p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.holding-info {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    min-height: 20px;
+}
+
+.order-inputs { display: flex; gap: 0.5rem; }
+.order-inputs input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.order-inputs button {
+    font-size: 0.9rem;
+    width: 30%;
+}
+
+button {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 80%;
+}
+
+/* 툴팁 기본 스타일 */
+.tooltip {
+    position: absolute;
+    bottom: 110%; /* input 위에 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 10;
+    
+    visibility: hidden; /* 기본적으로 숨김 */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* 툴팁을 보여주는 'show' 클래스 */
+.tooltip.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#buy-btn { background-color: var(--positive-color); }
+#buy-btn:hover { background-color: #c0392b; }
+#sell-btn { background-color: var(--negative-color); }
+#sell-btn:hover { background-color: #34495e; }
+
+
+/* 업데이트 게시판 스타일 */
+#update-posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.update-post {
+    background-color: #fdfdfd;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.update-post .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.update-post h3 {
+    margin: 0;
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+}
+
+.update-post .post-date {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.update-post .post-content {
+    line-height: 1.7;
+}
+
+
+/* 용어 사전 스타일 */
+#glossary-search { width: 100%; padding: 0.7rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color); border-radius: 4px; }
+#glossary-list dt { font-weight: 700; color: var(--primary-color); font-size: 1.1rem; }
+#glossary-list dd { margin-left: 1rem; margin-bottom: 1rem; padding-left: 1rem; border-left: 3px solid var(--border-color); }
+
+footer { text-align: center; padding: 1.5rem; margin-top: 2rem; color: #777; background-color: #e9ecef; }
+.positive { color: var(--positive-color); }
+.negative { color: var(--negative-color); }
+.zero { color: #333; }
+
+#ranking-overlay-btn {
+    position: fixed; /* 화면에 고정 */
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(142, 200, 255);
+    color: white;
+    border-radius: 50%; /* 원 모양으로 만들기 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: transform 0.2s ease-in-out;
+}
+
+#ranking-overlay-btn:hover {
+    transform: scale(1.1); /* 마우스를 올리면 살짝 커지는 효과 */
+}
+
+.ranking-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.ranking-section h2 {
+    margin-bottom: 1rem;
+}
+
+#mission-container {
+    position: relative; /* 드롭다운의 기준점 */
+    display: none; /* 로그아웃 상태에서는 숨김 */
+}
+
+/* 원형 아이콘 스타일 */
+#mission-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    transition: transform 0.2s;
+    /* 진행도 표시를 위한 배경 (JS에서 --progress 변수 값을 변경) */
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+                conic-gradient(#27ae60 var(--progress, 0%), #e0e0e0 var(--progress, 0%));
+}
+
+#mission-icon:hover {
+    transform: scale(1.1);
+}
+
+/* 말풍선 드롭다운 스타일 */
+#mission-dropdown {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    top: 130%; /* 아이콘 바로 아래에 위치 */
+    right: 0;
+    width: 320px;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 2000;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* 드롭다운 보이기 */
+#mission-dropdown.show {
+    display: block;
+}
+
+/* 말풍선 꼬리 만들기 */
+#mission-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+
+#mission-dropdown .dropdown-header {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+#mission-dropdown h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* 미션 리스트 스타일 */
+#mission-list { list-style: none; padding: 0rem 1rem 0rem 1rem; margin: 0; max-height: 400px; overflow-y: auto; }
+#mission-list li { padding: 1rem 0; border-bottom: 1px solid #f0f0f0; }
+#mission-list li:last-child { border-bottom: none; }
+#mission-list h4 { margin: 0 0 0.1rem 0; font-size: 1rem; color: #000000;}
+#mission-list p { margin: 0 0 0.5rem 0; font-size: 0.85rem; color: #555; }
+#mission-list .mission-footer { display: flex; justify-content: space-between; align-items: center; }
+#mission-list .reward { font-weight: bold; color: #27ae60; font-size: 0.9rem;}
+#mission-list .claim-btn { background-color: #2980b9; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem;}
+#mission-list .claim-btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+
+/* --- 반응형 디자인 (모바일 지원) --- */
+@media (max-width: 768px) {
+    /* 전체적인 여백 줄이기 */
+    main {
+        padding: 1rem;
+    }
+    .content {
+        padding: 1rem;
+    }
+    .header-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    nav a {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    /* 표 가독성 향상 */
+    th, td {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    /* --- 거래 페이지 모바일 레이아웃 --- */
+    .trading-layout {
+        flex-direction: column; /* 가로 정렬 -> 세로 정렬 */
+        height: auto; /* 고정 높이 해제 */
+    }
+
+    .stock-list-container {
+        flex: 0 0 auto; /* 고정 너비 해제 */
+        height: 300px; /* 목록 높이 지정 */
+    }
+
+    .chart-container {
+        height: 250px; /* 차트 높이 조정 */
+    }
+    
+    .order-container {
+        flex-direction: column; /* 매수/매도 박스 세로 정렬 */
+    }
+
+    .order-box {
+        padding: 1rem;
+    }
+    
+    /* 버튼 및 입력창 크기 조정 */
+    button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    #mission-dropdown {
+        left: 0;
+    }
+
+    #mission-dropdown::before {
+        left: 10px;
+    }
+    .portfolio-layout {
+        grid-template-columns: 1fr; /* 모바일에서는 1단으로 쌓임 */
+    }
+    /* 모바일에서 사이드바(공지/뉴스)를 맨 위로 올립니다. */
+    .sidebar-content {
+        order: 1; /* 첫 번째 순서 */
+        
+    }
+
+    /* 모바일에서 메인 컨텐츠(자산/보유주식)를 두 번째로 내립니다. */
+    .main-content {
+        order: 2; /* 두 번째 순서 */
+    }
+
+    .wallet-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
+        padding-bottom: 0rem;
+    }
+}
+

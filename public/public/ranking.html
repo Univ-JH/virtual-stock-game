@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP 10 랭킹 - 가상 주식 투자 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🏆 TOP 10 랭킹 🏆</h1>
+        <p id="last-updated-time" style="color: white; font-size: 0.9rem; margin-top: -10px;">업데이트: -</p>
+    </header>
+
+    <main class="ranking-main">
+        <section class="ranking-section">
+            <h2>수익률 TOP 10</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>순위</th>
+                            <th>이름</th>
+                            <th>수익률</th>
+                        </tr>
+                    </thead>
+                    <tbody id="return-rate-rank-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="ranking-section">
+            <h2>총자산 TOP 10</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>순위</th>
+                            <th>이름</th>
+                            <th>총자산</th>
+                        </tr>
+                    </thead>
+                    <tbody id="total-assets-rank-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="ranking.js"></script>
+</body>
+</html>

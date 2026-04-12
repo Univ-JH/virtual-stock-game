@@ -1,0 +1,543 @@
+.wallet-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 반응형 그리드 */
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.wallet-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.wallet-card .currency-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.8;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.wallet-card .currency-balance {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.wallet-card .currency-symbol {
+    opacity: 0.7;
+    margin-right: 5px;
+}
+
+/* 통화별 색상 디자인 */
+.wallet-krw {
+    background: linear-gradient(45deg, #434343, #000000);
+}
+.wallet-usd {
+    background: linear-gradient(45deg, #27ae60, #229954);
+}
+.wallet-eur {
+    background: linear-gradient(45deg, #2980b9, #3498db);
+}
+.wallet-jpy {
+    background: linear-gradient(45deg, #c0392b, #e74c3c);
+}
+
+/* 환전소 섹션 디자인 */
+.exchange-container {
+    display: flex;
+    flex-direction: column; /* 모바일에서 세로로 배치 */
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #f7f9fc;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    margin-top: 5rem;
+}
+
+.currency-selector-box {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.currency-selector-box label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.currency-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 버튼이 많아지면 줄바꿈 */
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.currency-btn {
+    padding: 0.75rem 1.25rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-grow: 1; /* 너비 동일하게 */
+    min-width: 80px;
+}
+
+.currency-btn:hover {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.currency-btn.active {
+    border-color: #007bff;
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+}
+
+.input-group {
+    width: 100%;
+    position: relative;
+}
+
+.input-group input[type="number"],
+.input-group input[type="text"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2c3e50;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.exchange-arrow {
+    font-size: 2rem;
+    color: #777;
+    font-weight: bold;
+}
+
+.exchange-info {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+#from-currency-balance-info,
+#to-currency-balance-info {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 5px;
+    text-align: right;
+    height: 1.2em; /* 잔액이 없을 때도 공간을 차지하도록 높이 고정 */
+}
+
+/* 환전하기 버튼 */
+#exchange-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(45deg, #007bff, #0056b3); /* 그라데이션 배경 */
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden; /* 효과를 위한 설정 */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); /* 은은한 그림자 */
+}
+
+/* 버튼에 아이콘 추가 */
+#exchange-btn::before {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+/* 마우스를 올렸을 때 효과 */
+#exchange-btn:hover {
+    transform: translateY(-3px); /* 살짝 위로 이동 */
+    box-shadow: 0 7px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* 클릭했을 때 효과 */
+#exchange-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* 비활성화 상태일 때 스타일 */
+#exchange-btn:disabled {
+    background: #bdc3c7; /* 회색 배경 */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 환전하기 버튼이 로딩 중일 때의 스타일 */
+#exchange-btn.loading {
+    cursor: not-allowed;
+    background: linear-gradient(45deg, #0056b3, #004085); /* 더 어두운 색상 */
+    box-shadow: none;
+    transform: none;
+}
+
+/* 로딩 중 텍스트에 깜빡이는 효과 추가 */
+#exchange-btn.loading::before {
+    content: '⏳'; /* 로딩 아이콘 */
+    margin-right: 10px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.block-center {
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .exchange-container {
+        flex-direction: row; /* 데스크톱에서 가로로 배치 */
+        justify-content: center;
+    }
+}
+
+/* 차트 선택 버튼 그룹 */
+.exchange-chart-area {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+    background-color: #f7f9fc;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    height: 350px; /* 차트 영역의 높이를 350px로 고정 */
+}
+
+.chart-selector-buttons {
+    margin-bottom: 1.5rem;
+    gap: 10px;
+    justify-content: flex-start; /* 버튼을 왼쪽으로 정렬 */
+}
+
+.chart-currency-btn {
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #555;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-grow: 0; /* 너비 자동 조절 */
+}
+
+.chart-currency-btn.active {
+    border-color: #3498db;
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+}
+
+.chart-currency-btn:hover:not(.active) {
+    background-color: #e8f0fe;
+}
+
+#exchange-chart-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.balance-info { font-size: 0.8rem; color: #555; margin-top: 5px; text-align: right; }
+.disabled-btn { opacity: 0.5; cursor: not-allowed !important; }
+
+.p2p-market-layout {
+    display: flex;
+    gap: 2rem;
+}
+.p2p-sidebar {
+    flex: 0 0 300px; /* 왼쪽 패널 너비 고정 */
+    display: flex;
+    flex-direction: column;
+}
+.p2p-main {
+    flex: 1; /* 오른쪽 패널이 남은 공간 모두 차지 */
+}
+.currency-selector {
+    display: flex;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden; /* 버튼 경계선 처리 */
+    border: 1px solid var(--border-color);
+}
+.currency-tab-btn {
+    flex: 1;
+    padding: 0.7rem 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #666;
+    background-color: #f0f2f5;
+    border: none; /* 컨테이너에서 보더 처리 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.currency-tab-btn:hover {
+    background-color: #e5e7eb;
+}
+.currency-tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(var(--primary-rgb), 0.2);
+    position: relative;
+    z-index: 1; /* 활성화된 버튼이 위로 오도록 */
+}
+/* 검색 상자 */
+.search-box {
+    margin-bottom: 1rem;
+    position: relative;
+}
+#stock-search-input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+/* 주식 목록 */
+#p2p-stock-list {
+    flex-grow: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* 목록이 길어지면 스크롤 */
+    max-height: calc(100vh - 350px); /* 뷰포트 높이에 따라 적절히 조절 */
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+.stock-item {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+.stock-item:last-child {
+    border-bottom: none;
+}
+.stock-item:hover {
+    background-color: #f8f8f8;
+}
+.stock-item.selected {
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.stock-item.placeholder {
+    color: #888;
+    text-align: center;
+    padding: 2rem 1rem;
+    cursor: default;
+}
+
+/* 오른쪽 패널 (상세 정보, 차트, 호가창) */
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.info-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-small);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+#market-info-placeholder {
+    text-align: center;
+    color: #666;
+    padding: 3rem 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.stock-detail-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+.stock-details-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 가격 정보를 왼쪽 정렬 */
+}
+.price-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* 가격과 변동률을 양 끝으로 */
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+#current-stock-price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #222;
+}
+#price-change {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.price-change.positive { color: var(--positive-color); }
+.price-change.negative { color: var(--negative-color); }
+.price-change.zero { color: #666; }
+
+#stock-price-chart {
+    width: 100% !important;
+    height: 200px !important; /* 차트 높이 고정 */
+    margin-top: 1rem;
+    background-color: #fff; /* 차트 배경 흰색 */
+    border-radius: 8px;
+}
+
+.order-book {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.order-book-table {
+    max-height: 300px; /* 호가창 높이 제한 */
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+.order-book-table th, .order-book-table td {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    text-align: left;
+}
+.order-book-table th {
+    background-color: #eef1f5;
+    font-weight: 600;
+    color: #555;
+    position: sticky;
+    top: 0; /* 스크롤 시 헤더 고정 */
+    z-index: 10;
+}
+.order-book-table tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+.order-book-table button.button-buy {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.my-holding-status {
+    text-align: center;
+    padding: 1.5rem;
+}
+.my-holding-status .holding-info {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+.my-holding-status .button-primary {
+    width: auto; /* 버튼이 길어지는 것 방지 */
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+}
+
+.p2p-sidebar.card, .p2p-main .card {
+    background-color: white; border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0; padding: 1.5rem;
+}
+.p2p-main .card { margin-bottom: 1.5rem; }
+.p2p-main .card:last-child { margin-bottom: 0; }
+.stock-list-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background-color 0.2s; }
+.stock-list-item:hover { background-color: #f9f9f9; }
+.stock-list-item.selected { background-color: #eaf5fc; font-weight: bold; }
+.stock-info .name { font-size: 1rem; }
+.stock-info .code { font-size: 0.8rem; color: #777; }
+.price-info .price { font-size: 1rem; font-weight: 500; }
+.price-info .change { font-size: 0.8rem; }
+.order-book h4 { margin-top: 0; }
+
+/* 모달 추가 스타일 */
+.quantity-controls { display: flex; gap: 10px; }
+.quantity-controls input { flex: 1; }
+.sale-summary { text-align: right; font-size: 1.1rem; margin: 1.5rem 0; }
+.sale-summary strong { color: var(--primary-color); }
+
+/* 반응형 디자인 */
+@media (max-width: 992px) {
+    .trading-container {
+        flex-direction: column; /* 작은 화면에서 세로로 정렬 */
+    }
+    .left-panel {
+        flex: auto; /* 너비 자동 조절 */
+        width: 100%;
+        max-width: none;
+    }
+    #p2p-stock-list {
+        max-height: 300px; /* 세로 스택 시 높이 제한 */
+    }
+}
+
+@media (max-width: 576px) {
+    .currency-tab-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.3rem;
+    }
+    .stock-detail-title {
+        font-size: 1.5rem;
+    }
+    #current-stock-price {
+        font-size: 2rem;
+    }
+    #price-change {
+        font-size: 1rem;
+    }
+    .info-card {
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Allow creation with strict initial conditions
+      allow create: if request.auth != null 
+                    && request.auth.uid == userId 
+                    && request.resource.data.cash == 10000000;
+      // Disable direct updates from client to prevent cash manipulation
+      allow update: if false; 
+      allow delete: if false;
+      
+      match /dailyMissions/{missionId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if false; 
+      }
+    }
+
+    match /stocks/{stockId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /stocks_usd/{stockId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /stocks_eur/{stockId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /stocks_jpy/{stockId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /system/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    match /announcements/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    match /news/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    match /rankings/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    match /loanRankings/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

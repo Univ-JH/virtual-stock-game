@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상 주식 투자 게임</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>가상 주식 투자 게임 📈</h1>
+            <div id="user-auth">
+                <button id="login-btn">Google 로그인</button>
+                <div id="mission-container">
+                    <div id="mission-icon" title="일일 미션 보기">🎯</div>
+                    <div id="mission-dropdown">
+                        <div class="dropdown-header">
+                            <h2>오늘의 미션</h2>
+                        </div>
+                        <ul id="mission-list">
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <a href="#portfolio" class="nav-link active" data-target="portfolio">내 포트폴리오</a>
+            <a href="#trading" class="nav-link" data-target="trading">국내 주식</a>
+            <a href="overseas.html">해외 주식</a>
+            <a href="#updates" class="nav-link" data-target="updates">업데이트</a>
+            <a href="#glossary" class="nav-link" data-target="glossary">용어 사전</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="portfolio" class="content content2 active">
+            <div class="portfolio-layout">
+
+                <div class="main-content">
+                    <div class="card">
+                        <h2>내 자산 현황</h2>
+                        <div class="summary-box">
+                            <div class="total-assets-card">
+                                <h3 class="total-assets-title">총 자산 (KRW 환산)</h3>
+                                <p id="total-assets" class="total-assets-value">₩0</p>
+                                <p id="loan-display" class="loan-amount-text"></p>
+                                <div id="loan-actions" class="loan-buttons">
+                                    <button id="loan-btn">500만원 대출받기</button>
+                                    <button id="repay-btn">대출금 상환하기</button>
+                                </div>
+                            </div>
+
+                            <div class="wallet-toggle">
+                                <button id="wallet-toggle-btn" class="wallet-toggle-header">
+                                    <span>통화별 보유 현황</span>
+                                    <span class="toggle-icon">▼</span>
+                                </button>
+                                <div id="wallet-grid-container" class="wallet-grid-content">
+                                    <div class="wallet-grid">
+                                        <div id="krw-balance" class="mini-wallet"></div>
+                                        <div id="usd-balance" class="mini-wallet"></div>
+                                        <div id="eur-balance" class="mini-wallet"></div>
+                                        <div id="jpy-balance" class="mini-wallet"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="portfolio-header">
+                            <div class="section-div">
+                            <h3>보유 주식</h3><span id="update-timer"></span>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table id="portfolio-table">
+                                <thead>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>보유수량</th>
+                                        <th>평균매수가</th>
+                                        <th>현재가</th>
+                                        <th>평가금액</th>
+                                        <th>평가손익</th>
+                                        <th>수익률</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    </tbody>
+                            </table>
+                        </div>
+                        <div class="section-div"><div></div>
+                        <button id="sell-all-btn" class="button-small">전체 매도</button></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-content">
+                    <div class="info-widget">
+                        <div class="info-tabs">
+                            <button class="info-tab-button active" data-target="announcements-panel">📢 공지사항</button>
+                            <button class="info-tab-button" data-target="news-panel">📰 주요 뉴스</button>
+                        </div>
+                        <div class="info-panels">
+                            <div id="announcements-panel" class="info-panel active">
+                                </div>
+                            <div id="news-panel" class="info-panel">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="trading" class="content">
+            <h2 class="section-title">
+                주식 거래
+                <span id="update-timer2"></span> </h2>
+            <div class="trading-layout">
+                <div class="stock-list-container">
+                    <h3>거래 가능 종목</h3>
+                    <ul id="tradable-stocks">
+                        </ul>
+                </div>
+                <div class="trading-main">
+                    <div class="chart-container">
+                        <canvas id="stock-chart"></canvas>
+                    </div>
+                    <div class="order-container">
+                        <div class="order-box buy-box">
+                            <h4>매수</h4>
+                            <div class="holding-info" id="buy-holding-info"></div>
+                            <p>주문 가능 금액: <span id="buy-power"></span></p>
+                            <div class="order-inputs">
+                                <div class="input-wrapper">
+                                    <input type="number" id="buy-quantity" placeholder="수량" min="1">
+                                    <span class="tooltip" id="buy-tooltip">최대 매수 개수</span>
+                                </div>
+                                <button id="buy-btn">매수</button>
+                            </div>
+                        </div>
+                        <div class="order-box sell-box">
+                            <h4>매도</h4>
+                            <div class="holding-info" id="sell-holding-info"></div>
+                            <p>주문 가능 수량: <span id="sell-power">0</span></p>
+                            <div class="order-inputs">
+                                <div class="input-wrapper">
+                                    <input type="number" id="sell-quantity" placeholder="수량" min="1">
+                                    <span class="tooltip" id="sell-tooltip">최대 매도 개수</span>
+                                </div>
+                                <button id="sell-btn">매도</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="updates" class="content">
+            <h2 class="section-title">업데이트 소식 📢</h2>
+            <div id="update-posts-container">
+                </div>
+        </section>
+
+        <section id="glossary" class="content">
+            <h2>주식 용어 사전</h2>
+            <input type="text" id="glossary-search" placeholder="용어 검색...">
+            <dl id="glossary-list">
+                </dl>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 가상 주식 게임.  개발자 : mr2jung0902@gmail.com</p>
+    </footer>
+
+    <a href="ranking.html" target="_blank" id="ranking-overlay-btn" title="랭킹 보기">🏆</a>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

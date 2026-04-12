@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해외 주식 - 가상 주식 투자 게임</title>
+    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="overseas.css"> </head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<body>
+    <header>
+        <h1>🌎 해외 주식 🌎</h1>
+        <nav id="overseas-nav">
+            <a href="#overseas-portfolio" class="nav-link active" data-target="overseas-portfolio">자산 현황</a>
+            <a href="#exchange" class="nav-link" data-target="exchange">환전소</a>
+            <a href="#overseas-trading" class="nav-link" data-target="overseas-trading">해외 주식 거래</a>
+            <a href="index.html">국내 주식</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="overseas-portfolio" class="content active">
+            <h2 class="section-title">내 해외 자산</h2>
+            
+            <div id="wallet-balances" class="wallet-dashboard">
+                </div>
+
+            <div class="portfolio-header">
+                <h3>보유 해외 주식</h3>
+                </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>종목명</th>
+                            <th>보유수량</th>
+                            <th>평균매수가</th>
+                            <th>현재가</th>
+                            <th>통화</th>
+                            <th>평가금액</th>
+                            <th>수익률</th>
+                        </tr>
+                    </thead>
+                    <tbody id="overseas-portfolio-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="exchange" class="content">
+            <h2 class="section-title">환전소</h2>
+
+            <div class="exchange-chart-area">
+                <h3 style="text-align: center; color: #555;">환율 변동 추이 (KRW 기준)</h3>
+
+                <div id="rate-chart-selector" class="currency-buttons chart-selector-buttons">
+                    <button class="chart-currency-btn active" data-chart-currency="usd">$ USD</button>
+                    <button class="chart-currency-btn" data-chart-currency="eur">€ EUR</button>
+                    <button class="chart-currency-btn" data-chart-currency="jpy">¥ JPY</button>
+                    <button class="chart-currency-btn" data-chart-currency="all">모두</button>
+                </div>
+
+                <canvas id="exchange-chart-canvas" style="background: #ffffff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></canvas>
+            </div>
+
+            <div class="exchange-container">
+                <div class="currency-selector-box">
+                    <label>보내는 통화</label>
+                    <div id="from-currency-buttons" class="currency-buttons">
+                        <button class="currency-btn active" data-currency="krw">₩ KRW</button>
+                        <button class="currency-btn" data-currency="usd">$ USD</button>
+                        <button class="currency-btn" data-currency="eur">€ EUR</button>
+                        <button class="currency-btn" data-currency="jpy">¥ JPY</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="from-amount" placeholder="수량 입력" min="0">
+                    </div>
+                    <div id="from-currency-balance-info" class="balance-info"></div>
+                </div>
+
+                <div class="exchange-arrow">⇄</div>
+
+                <div class="currency-selector-box">
+                    <label>받는 통화</label>
+                    <div id="to-currency-buttons" class="currency-buttons">
+                        <button class="currency-btn active" data-currency="usd">$ USD</button>
+                        <button class="currency-btn" data-currency="krw">₩ KRW</button>
+                        <button class="currency-btn" data-currency="eur">€ EUR</button>
+                        <button class="currency-btn" data-currency="jpy">¥ JPY</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="to-amount" placeholder="결과" readonly>
+                    </div>
+                    <div id="to-currency-balance-info" class="balance-info"></div>
+                </div>
+            </div>
+            <p id="exchange-rate-info" class="exchange-info">환율 정보를 불러오는 중...</p>
+            <div class="block-center">
+                <button id="exchange-btn" class="button-primary">환전하기</button>
+            </div>
+        </section>
+
+        <section id="overseas-trading" class="content">
+            <div class="trading-container">
+                <div class="left-panel card">
+                    <div class="currency-selector">
+                        <button class="currency-tab-btn active" data-currency="usd">USD</button>
+                        <button class="currency-tab-btn" data-currency="eur">EUR</button>
+                        <button class="currency-tab-btn" data-currency="jpy">JPY</button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="stock-search-input" placeholder="종목명 또는 코드 검색...">
+                    </div>
+                    <ul id="stock-list" class="stock-list"></ul>
+                </div>
+
+                <div class="right-panel">
+                    <div id="stock-details-placeholder" class="card">
+                        <p>왼쪽에서 거래할 주식을 선택해주세요.</p>
+                    </div>
+                    <div id="stock-details-view" style="display: none;">
+                        <div class="card">
+                            <h3 id="stock-name"></h3>
+                            <div class="details-grid">
+                                <p>현재가: <strong id="stock-price"></strong></p>
+                                <p>시가 총액: <strong id="stock-market-cap"></strong></p>
+                            </div>
+                            <canvas id="stock-chart"></canvas>
+                        </div>
+                        <div class="order-container">
+                            <div class="order-box buy-box card">
+                                <h4>매수</h4>
+                                <div id="buy-holding-info" class="holding-info"></div>
+                                <div class="order-inputs">
+                                    <input type="number" id="buy-quantity" placeholder="수량" min="1">
+                                    <button id="buy-btn">매수</button>
+                                </div>
+                            </div>
+                            <div class="order-box sell-box card">
+                                <h4>매도</h4>
+                                <div id="sell-holding-info" class="holding-info"></div>
+                                <div class="order-inputs">
+                                    <input type="number" id="sell-quantity" placeholder="수량" min="1">
+                                    <button id="sell-btn">매도</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="overseas.js"></script>
+</body>
+</html>
