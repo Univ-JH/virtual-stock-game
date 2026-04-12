@@ -127,11 +127,6 @@
 ```
 virtual-stock-game/
 │
-├── virtual-stock-game/          ← 📁 v0.1 오프라인 프로토타입 (히스토리 보존)
-│   ├── index.html
-│   ├── script.js
-│   └── style.css
-│
 └── public/                      ← 📁 프로덕션 (Firebase 배포)
     ├── firebase.json             # Hosting + Functions 설정
     ├── .firebaserc               # 프로젝트 ID 연결
