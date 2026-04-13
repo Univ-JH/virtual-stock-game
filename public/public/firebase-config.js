@@ -14,12 +14,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-
 import { getFunctions } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-functions.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAmerULdPVcySQ-B86H0XAy8queWItkiws",
-    authDomain: "virtual-stock-game.firebaseapp.com",
-    projectId: "virtual-stock-game",
-    storageBucket: "virtual-stock-game.firebasestorage.app",
-    messagingSenderId: "211036941511",
-    appId: "1:211036941511:web:1e2dd77d0882314df9e2e2"
+    
 };
 
 export const app = initializeApp(firebaseConfig);
